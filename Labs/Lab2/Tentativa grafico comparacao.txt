@@ -11,13 +11,15 @@ energy = [];
 Fs=100;
 Ts=1;
 Tb = Ts;
+Pb = zeros(1,length(energy));
 fprintf('Begin!\n');
 
 % Doing the process to different values of amplitude
-for AMP=0:0.1:3   
+j=0;
+for AMP=0:0.1:1.5   
     fprintf('Doing for Antipodal and AMP = %i\n',AMP);
     energy = cat(2, energy, AMP^2/Tb);
-    N = 100000;
+    N = 10000;
 
     bit1=ones(1,Fs);
     bit0=-ones(1,Fs);
@@ -208,13 +210,22 @@ for AMP=0:0.1:3
     xBits = sum(xBits); % Get number of error bits
     BER_ort = cat(2,BER_ort,xBits/N); % Register the BER values
     
+    EbN0 = AMP^2;
+    Pb(j+1)=(3/2)*qfunc(sqrt(2)*EbN0); %BER teórica.
+    j=j+1;
 end
+
 % Generating plot with the energy and the BER values
 figure;
 plot(energy,BER_ap);
 hold on;
 plot(energy,BER_ort,'r');
-legend('ANTIPODAL', 'ORTOGONAL');
-xlabel('Energy'); ylabel('BER');
-title('2-PAM')
+
+i = energy;
+figure
+semilogy(i,Pb,'b-',i,BER_ap,'ro');
+grid on
+figure
+semilogy(i,Pb,'b-',i,BER_ort,'ro');
+grid on
 toc

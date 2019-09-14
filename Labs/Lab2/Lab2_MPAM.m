@@ -15,10 +15,10 @@ Tb = Ts/log2(M);
 fprintf('Begin!\n');
 
 % Doing the process to different values of amplitude
-for AMP=0:0.01:2   
+for AMP=0:0.05:1.5 
     fprintf('Doing for Antipodal and AMP = %i\n',AMP);
     energy = cat(2, energy, AMP^2/Tb);
-    N = 1000;
+    N = 100000;
 
     bit00=-3*ones(1,Fs);
     bit01=-ones(1,Fs);
@@ -128,4 +128,6 @@ end
 % Generating plot with the energy and the BER values
 figure;
 plot(energy,BER_ap);
+xlabel('Energy'); ylabel('BER');
+title('4-PAM')
 toc
