@@ -13,6 +13,8 @@ AMP = 3;
 delta=T/f;
 randn('seed',0); %seed para randn
 
+for
+
 % SINAL DE ENTRADA
 y=[1 0 0 1 0];
 s=AMP*(2*y-1);
