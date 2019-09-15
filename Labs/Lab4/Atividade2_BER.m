@@ -6,7 +6,6 @@ clc
 
 % VARIAVEIS
 alfa = 1;
-fim=5;
 T=1;
 f=10;
 AMP = 3;
@@ -16,17 +15,21 @@ randn('seed',0); %seed para randn
 BER_ap = [];
 energy = [];
 
-for AMP=0:0.5:15
+bits=0.5e1; %Número de bits a serem simulados.
+rand('state',0);
+randn('state',0);
+
+for AMP=0:0.01:15
     fprintf('Doing for Antipodal and AMP = %i\n',AMP);
     energy = cat(2, energy, AMP^2/T);
     
     % SINAL DE ENTRADA
-    y=[1 0 0 1 0];
+    y=rand(1,bits)>0.5; %Geração de bits 0 e 1 equiprováveis.
     s=AMP*(2*y-1);
     s_up=upsample(s,f);
 
     % FILTRO DE TRANSMISSAO
-    h=rcosfir(alfa,fim,f,T,'sqrt');
+    h=rcosfir(alfa,bits,f,T,'sqrt');
     x=conv(s_up,h);
 
 %     % PLOT PRÉ-RUÍDO
@@ -44,8 +47,8 @@ for AMP=0:0.5:15
 
     % FILTRO CASADO
     r=conv(x,h); %mesmo pulso base
-    t_amostra = linspace(length(h),length(h)+4*(length(h)-1)/10,5);
-    r_amostra=r(t_amostra);
+    t_amostra = linspace(length(h),length(h)+4*(length(h)-1)/10,bits);
+    r_amostra=r(round(t_amostra));
 
     % DECISAO
     amostra_AP = double(r_amostra>0);
@@ -66,7 +69,12 @@ for AMP=0:0.5:15
     xBits = (y==amostra_AP);
     xBits = (xBits==0);
     xBits = sum(xBits); % Get number of error bits
-    BER_ap = cat(2,BER_ap,xBits/5); % Register the BER values
+    BER_ap = cat(2,BER_ap,xBits/bits); % Register the BER values
 end
 figure;
 plot(energy,BER_ap);
+hold on
+
+% a=1:length(BER_ap);
+% BER_FIT=fit(BER_ap',a','exp2')
+% plot(BER_FIT);
