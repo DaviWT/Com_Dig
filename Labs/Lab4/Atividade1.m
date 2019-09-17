@@ -43,41 +43,16 @@ for alfa = 0:0.5:1
 
 
     %% Resposta em Frequencia Usando a Expressão Exata da Transformada de Fourier (pode ser feito via FFT a partir do pulso no tempo também)
-    conta=0;
+    
     W=1;
-    f1=(1-alfa)*W;
-
-    for ff=-2*(2*W-f1):0.01:-(2*W-f1)-0.01
-        conta=conta+1;
-        H(conta)=0;
-        f(conta)=ff;
-    end 
-    for ff=-(2*W-f1):0.01:-f1-0.01
-        conta=conta+1;
-        H(conta)=(1/(4*W))*(1+cos(pi/(2*W*alfa)*(abs(ff)-W*(1-alfa))));
-        f(conta)=ff;
-    end    
-    for ff=-f1:0.01:f1
-        conta=conta+1;
-        H(conta)=1/(2*W);
-        f(conta)=ff;
-    end
-    for ff=f1+0.01:0.01:(2*W-f1)
-        conta=conta+1;
-        H(conta)=(1/(4*W))*(1+cos(pi/(2*W*alfa)*(abs(ff)-W*(1-alfa))));
-        f(conta)=ff;
-    end    
-    for ff=(2*W-f1)+0.01:0.01:2*(2*W-f1)
-        conta=conta+1;
-        H(conta)=0;
-        f(conta)=ff;
-    end 
+    H = fftshift(fft(h,1001));
 
     % Plot
     figure(3)
-    plot(f,2*W*H,color((2*alfa+1)))
+    f_plot = linspace(-4,4,1001);
+    plot(f_plot,2*W*abs(H)/f,color((2*alfa+1)))
     hold on;
-    axis([-3 3 0 1.1])
+    axis([-2 2 0 0.8])
     grid
     title('Resposta em Frequência - Raiz cosseno levantado')
     xlabel('\times R/2 (Hz)');
@@ -182,7 +157,7 @@ legend('\alpha=0','\alpha=0.5','\alpha=1');
 % Save figures
 % saveas(figure(1),'Pulso_Raiz_Cosseno.bmp')
 % saveas(figure(2),'Sinal_Transmitido_Raiz_Cosseno.bmp')
-% saveas(figure(3),'Frequencia_Raiz_Cosseno.bmp')
+ saveas(figure(3),'Frequencia_Raiz_Cosseno.bmp')
 % saveas(figure(4),'Pulso_Cosseno.bmp')
 % saveas(figure(5),'Sinal_Transmitido_Cosseno.bmp')
 % saveas(figure(6),'Frequencia_Cosseno.bmp')

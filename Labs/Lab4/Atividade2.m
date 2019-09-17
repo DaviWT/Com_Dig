@@ -11,7 +11,7 @@ T=1;
 f=10;
 AMP = 3;
 delta=T/f;
-randn('seed',0); %seed para randn
+randn('state',0); %seed para randn
 
 % SINAL DE ENTRADA
 y=[1 0 0 1 0];
