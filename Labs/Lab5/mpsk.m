@@ -1,6 +1,11 @@
-close all;
-clear all;
+%% mpsk.m
+%
+%   Script referente ao laboratório 5 de comunicações digitais.
+%
 
+close all;
+clear;
+fprintf('Gerando Gráficos..\n')
 
 %bertool
 %% Plot BER M-PSK
@@ -16,7 +21,7 @@ semilogy(ebno3,ber3,'b');
 hold on;
 axis([0 20 1e-5 1]);
 legend('BPSK','QPSK','8-PSK','16-PSK');
-title('PLOT BER M-PSK');
+title('BER M-PSK');
 xlabel('Eb/N0');
 ylabel('BER');
 
@@ -32,7 +37,7 @@ semilogy(ebno2,ber2,'r');
 hold on;
 axis([0 20 1e-5 1]);
 legend('4-QAM','16-QAM','64-QAM');
-title('PLOT BER M-QAM');
+title('BER M-QAM');
 xlabel('Eb/N0');
 ylabel('BER');
 
@@ -49,8 +54,16 @@ const16qam=[ (-3+3*j) (-1+3*j) (1+3*j) (3+3*j)...
 %Ajuste da amplitude para garantir mesma Eb entre 8-PSK e 16-QAM     
 const16qam = sqrt(4/3)*const16qam;
 
+% Folder to save the images
+pathImagens = strcat(fileparts(mfilename('fullpath')),'\Imagens\');
+
+% Plots das constelações ideais
 scatterplot(const8psk);
+title('8-PSK - caso ideal');
+saveas(gcf,strcat(pathImagens,'PSKideal.bmp'));
 scatterplot(const16qam);
+title('16-QAM - caso ideal');
+saveas(gcf,strcat(pathImagens,'QAMideal.bmp'));
 
 % Plots com ruido
 for ruido = [0.02 0.05 0.1 0.15 0.2]
@@ -58,13 +71,17 @@ for ruido = [0.02 0.05 0.1 0.15 0.2]
     u=ceil(rand(1,Nb)*8);
     x=const8psk(u)+ruido*randn(1,length(u))+j*ruido*randn(1,length(u));
     scatterplot(x);
-    titulo = sprintf('8-PSK - ruido = %.2d',ruido);
+    titulo = sprintf('8-PSK - ruido = %.2f',ruido);
     title(titulo);
+    saveas(gcf,strcat(pathImagens,'PSK_',num2str(ruido),'.bmp'));
     
     % 16-QAM
     u=ceil(rand(1,Nb)*16);
     x=const16qam(u)+ruido*randn(1,length(u))+j*ruido*randn(1,length(u));
     scatterplot(x);
-    titulo = sprintf('16-QAM - ruido = %.2d',ruido);
+    titulo = sprintf('16-QAM - ruido = %.2f',ruido);
     title(titulo);
+    saveas(gcf,strcat(pathImagens,'QAM_',num2str(ruido),'.bmp'));
 end
+
+fprintf('Feito!\n');
