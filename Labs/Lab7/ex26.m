@@ -5,7 +5,7 @@ close all;
 clc;
 
 %% Exercício 26
-
+fprintf('=================\nExercicio 26:\n');
 % Variaveis
 Pt_C = 1e-3;
 Pr_C_dbm = -95;
@@ -21,6 +21,27 @@ fc = 2.4e9;
 
 % Calculo
 lambda = 3e8/fc;
-d_el = sqrt(Pr_A*16*pi^2/(Pt_A*lambda^2));  %corrigir!!!
+d_el_A = sqrt(Pt_A*lambda^2/(16*pi^2*Pr_A));
+d_el_C = sqrt(Pt_C*lambda^2/(16*pi^2*Pr_C));
+
+d_ld_A = (Pt_A*lambda^2/(16*pi^2*Pr_A))^(1/n);
+d_ld_C = (Pt_C*lambda^2/(16*pi^2*Pr_C))^(1/n);
+
+fprintf('>CC2420:\n');
+fprintf('Dist. mín. Espaço Livre = %d\n',d_el_C);
+fprintf('Dist. mín. Log-Distância = %d\n',d_ld_C);
+fprintf('>AT86RF231:\n');
+fprintf('Dist. mín. Espaço Livre = %d\n',d_el_A);
+fprintf('Dist. mín. Log-Distância = %d\n',d_ld_A);
+fprintf('=================\n');
+fprintf('>Espaço Livre:\n');
+fprintf('AT86RF231 será %.4f maior que CC2420:\n',d_el_A/d_el_C);
+fprintf('>Log-Distância:\n');
+fprintf('AT86RF231 será %.4f maior que CC2420:\n',d_ld_A/d_ld_C);
+fprintf('=================\n');
+
+% DISCLAIMER! Lembrar de fazer parte teórica!!!!!!!!!
+
+
 
 
