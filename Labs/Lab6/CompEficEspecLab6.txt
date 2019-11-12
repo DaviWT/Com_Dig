@@ -1,0 +1,7 @@
+Comparação 2 - Eficiência Espectral - Lab6
+
+>>> ef = Rb/Banda <<<
+
+ef(M-QAM) = 4/1,56 = 2,56
+ef(M-FSK) = 2000/4000 = 0,5
+ef(M-PSK) = 3/1,56 = 1,92 (VERIFICAR!)
