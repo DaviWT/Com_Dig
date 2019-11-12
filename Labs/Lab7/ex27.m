@@ -35,5 +35,7 @@ for i=1:4
     fprintf('> d min log-distância: %.2f[m]:\n',d_min_ld(i));
 end
 fprintf('=================\n');
+fprintf('Datasheet CC1100: http://www.ti.com/lit/ds/swrs038d/swrs038d.pdf\n');
+fprintf('=================\n');
 
 
