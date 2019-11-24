@@ -40,8 +40,37 @@ fprintf('>Log-Distância:\n');
 fprintf('AT86RF231 será %.4f maior que CC2420:\n',d_ld_A/d_ld_C);
 fprintf('=================\n');
 
-% DISCLAIMER! Lembrar de fazer parte teórica!!!!!!!!!
+%% Parte teórica
 
+%
+% Como dois rádios que seguem o mesmo padr˜ão podem ter alcances t˜ão diferentes?
+% 
+% Escolhas de projeto da arquitetura de cada rádio pode fazer com que
+% esses alcances máximos variem, dada a potência de tranmissão e a 
+% sensibilidade de cada modelo. Como o padrão IEEE 802.15.4 estabelece
+% um enlace de 10m, ambos os rádios estão de acordo com a norma, porém
+% pelo fato do AT86RF231 possuir um alcance máximo maior há mais chances
+% que ele seja utilizado para aplicações em casos específicos onde se
+% requer uma distância maior entre os pontos.
+%
+% Procure folhear os datasheets dos dois rádios em busca de outras diferenças.
+%
+% Além das diferenças já levantadas pelo professor, foi observado que o rádio 
+% da Atmel AT86RF231 possui um hardware para True Random Number Generator (TRNG),
+% para aplicações que necessitam de segurança. Outra diferença foi que a interface
+% SPI do rádio da Texas Instruments CC2420 funciona com clock de até 10MHz,
+% enquanto para o da Atmel seria até 8MHz.
+% Links:
+% http://ww1.microchip.com/downloads/en/DeviceDoc/doc8111.pdf
+% http://www.ti.com/lit/ds/symlink/cc2420.pdf
+%
+% Como escolher o rádio mais apropriado?
+%
+% Cada aplicação necessita de um rádio que se encaixe melhor nas condições em que
+% a transmissão será feita. Pode depender da distância entre os nós, da taxa de 
+% transmissão necessária, consumo energético, e até de funcionalidades secundárias
+% como a geração de números aleatórios segura ou parâmetros do bararramento de interface.
+%
 
 
 
