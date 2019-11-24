@@ -31,9 +31,9 @@ load mqam.mat
 semilogy(ebnoA,berA,'-kp');
 grid on;
 hold on;
-semilogy(ebno1,ber1,'b');
+semilogy(ebno1,berB,'b');
 hold on;
-semilogy(ebno2,ber2,'r');
+semilogy(ebno2,berC,'r');
 hold on;
 axis([0 20 1e-5 1]);
 legend('4-QAM','16-QAM','64-QAM');
